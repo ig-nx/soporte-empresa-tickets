@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Tickets{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="m-0">Listado de tickets</h2>
+    <a class="btn btn-primary" href="{% url 'ticket_create' %}">+ Nuevo ticket</a>
+</div>
+<div class="card">
+    <div class="card-body">
+        {% if tickets %}
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Prioridad</th>
+                        <th>Estado</th>
+                        <th>Email</th>
+                        <th>Creado</th>
+                        <th class="text-end">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for t in tickets %}
+                    <tr>
+                        <td>{{ t.id }}</td>
+                        <td>{{ t.titulo }}</td>
+                        <td>{{ t.get_prioridad_display }}</td>
+                        <td>{{ t.get_estado_display }}</td>
+                        <td>{{ t.email_contacto }}</td>
+                        <td>{{ t.fecha_creacion|date:"Y-m-d H:i" }}</td>
+                        <td class="text-end">
+                            <a class="btn btn-sm btn-outline-secondary" href="{% url 'ticket_update' t.pk %}">Editar</a>
+                            <a class="btn btn-sm btn-outline-danger" href="{% url 'ticket_delete' t.pk %}">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-muted mb-0">No hay tickets registrados.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

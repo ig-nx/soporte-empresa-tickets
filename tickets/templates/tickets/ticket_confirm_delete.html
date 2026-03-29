@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Eliminar ticket{% endblock %}
+{% block content %}
+<div class="card border-danger">
+    <div class="card-body">
+        <h3 class="text-danger mb-3">Confirmar eliminación</h3>
+        <p>¿Seguro que deseas eliminar el ticket <strong>#{{ object.id }}</strong>?</p>
+        <p class="mb-4"><em>{{ object.titulo }}</em></p>
+        <form method="post">
+            {% csrf_token %}
+            <button class="btn btn-danger" type="submit">Sí, eliminar</button>
+            <a class="btn btn-secondary" href="{% url 'ticket_list' %}">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
